@@ -1,0 +1,4 @@
+name=MrBeast
+id=TAq0i27himqwYvwCxk8jLQ
+url=https://www.youtube.com/@MrBeast/videos
+
