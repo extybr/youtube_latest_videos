@@ -78,7 +78,6 @@ def get_urls(start_file_name='') -> None:
 
 if __name__ == "__main__":
     urls = []
-    file_name = ''
     if len(sys.argv) == 2:
         if sys.argv[1].startswith('https://'):
             urls = [('channel', sys.argv[1])]
