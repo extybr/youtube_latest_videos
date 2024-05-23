@@ -1,4 +1,8 @@
 name=MrBeast
-id=TAq0i27himqwYvwCxk8jLQ
+id=UCX6OQ3DkcsbYNE6H8uQQuVA
 url=https://www.youtube.com/@MrBeast/videos
+
+name=T-Series
+id=UCq-Fj5jknLsUf-MWSy4_brA
+url=https://www.youtube.com/@tseries/videos
 

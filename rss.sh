@@ -1,5 +1,7 @@
 #!/bin/bash
-#./rss.sh channels.txt
+
+# example:
+# $> ./rss.sh channels.txt
 
 red='\033[31m'
 green='\033[32m'

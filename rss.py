@@ -1,3 +1,9 @@
+#######################
+#  Example:           #
+# $> python rss.py    #
+# $> python rss.py g  #
+#######################
+
 import sys
 import os
 import feedparser
@@ -8,7 +14,7 @@ yellow = '\033[33m'
 normal = '\033[0m'
 
 
-def get_latest_videos_from_rss(channel_id, num_videos=5):
+def get_latest_videos_from_rss(channel_id: str, num_videos=5) -> list:
     rss_url = (f"https://www.youtube.com/feeds/videos.xml?"
                f"channel_id={channel_id}")
     feed = feedparser.parse(rss_url)
@@ -22,7 +28,7 @@ def get_latest_videos_from_rss(channel_id, num_videos=5):
     return videos
 
 
-def get_urls(start_file_name=''):
+def get_urls(start_file_name='') -> list:
     files = []
     for file in os.listdir():
         if start_file_name:

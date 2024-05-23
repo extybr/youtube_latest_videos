@@ -1,3 +1,10 @@
+#################################################################
+#  Example:                                                     #
+# $> python curl_re.py                                          #
+# $> python curl_re.py g                                        #
+# $> python curl_re.py https://www.youtube.com/@tseries/videos  #
+#################################################################
+
 import sys
 import os
 import subprocess
@@ -10,7 +17,8 @@ YELLOW = '\033[033m'
 DEFAULT = '\033[0m'
 
 
-def get_list_link(urls):
+def get_list_link() -> None:
+    global urls
     pattern1 = (r'"accessibility":{"accessibilityData":{"label":".+"}}},'
                 r'"descriptionSnippet"')
     pattern2 = r'"descriptionSnippet"'
@@ -38,7 +46,7 @@ def get_list_link(urls):
                 print(f'{YELLOW}https://www.youtube.com/watch{link}{DEFAULT}\n')
             else:
                 urls.insert(0, (name, url))
-                get_list_link(urls)
+                get_list_link()
         except Exception as error:
             print(f'{RED}{str(error)}{DEFAULT}\n')
 
@@ -46,7 +54,8 @@ def get_list_link(urls):
             time.sleep(3)
 
 
-def get_urls(start_file_name=''):
+def get_urls(start_file_name='') -> None:
+    global urls
     files = []
     for file in os.listdir():
         if start_file_name:
@@ -65,7 +74,6 @@ def get_urls(start_file_name=''):
                 elif line.startswith('url='):
                     url = line.strip()[4:]
                     urls.append((name, url))
-    return urls
 
 
 if __name__ == "__main__":
@@ -75,7 +83,7 @@ if __name__ == "__main__":
         if sys.argv[1].startswith('https://'):
             urls = [('channel', sys.argv[1])]
         else:
-            get_urls(sys.argv[1])
+            get_urls(start_file_name=sys.argv[1])
     else:
         get_urls()
-    get_list_link(urls)
+    get_list_link()
