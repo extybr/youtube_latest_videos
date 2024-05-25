@@ -8,6 +8,11 @@ green='\033[32m'
 blue='\033[36m'
 normal='\033[0m'
 
+if [ $# -ne 1 ]; then
+  echo -e "${red}1 parameter was expected, but $# were passed${normal}"
+  exit 0
+fi
+
 # Получаем список каналов
 ids=$(cat "$1" | grep -oP 'id=[^=]+' | sed 's/id=//g')
 

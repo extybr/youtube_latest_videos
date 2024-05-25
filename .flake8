@@ -1,0 +1,4 @@
+[flake8]
+#ignore = W503,W504
+max-line-length = 80
+exclude = .git,__pycache__,.github,venv

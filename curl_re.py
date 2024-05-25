@@ -19,30 +19,34 @@ DEFAULT = '\033[0m'
 
 def get_list_link() -> None:
     global urls
-    pattern1 = (r'"accessibility":{"accessibilityData":{"label":".+"}}},'
-                r'"descriptionSnippet"')
-    pattern2 = r'"descriptionSnippet"'
-    pattern3 = r'"url":"/watch.+",'
-    pattern4 = r'","webPageType":"WEB_PAGE_TYPE_WATCH"'
-    
+    start_title = (r'"accessibility":{"accessibilityData":{"label":".+"}}},'
+                   r'"descriptionSnippet"')
+    end_title = r'"descriptionSnippet"'
+    start_link = r'"url":"/watch.+",'
+    end_link = r'","webPageType":"WEB_PAGE_TYPE_WATCH"'
+
     while urls:
         try:
             name, url = urls.pop(0)
             curl = f'curl -s --location --max-time 5 {url}'
             html = subprocess.getoutput(curl)
-            sample1 = re.compile(pattern1)
-            title1 = sample1.search(html)
-            sample2 = re.compile(pattern2)
-            title2 = sample2.search(html)
-            sample3 = re.compile(pattern3)
-            title3 = sample3.search(html)
-            sample4 = re.compile(pattern4)
-            title4 = sample4.search(html)
-            
-            if title1 and title2 and title3 and title4:
-                title = html[title1.start() + 47:title2.start() - 5]
+            result_start_title = re.compile(start_title)
+            sample_start_title = result_start_title.search(html)
+            result_end_title = re.compile(end_title)
+            sample_end_title = result_end_title.search(html)
+            result_start_link = re.compile(start_link)
+            sample_start_link = result_start_link.search(html)
+            result_end_link = re.compile(end_link)
+            sample_end_link = result_end_link.search(html)
+
+            sample_title = sample_start_title and sample_end_title
+            sample_link = sample_start_link and sample_end_link
+            if sample_title and sample_link:
+                title = html[sample_start_title.start() + 47:
+                             sample_end_title.start() - 5]
                 print(f'{RED}{name}{DEFAULT}: {BLUE}{title}{DEFAULT}')
-                link = html[title3.start() + 13:title4.start()]
+                link = html[sample_start_link.start() + 13:
+                            sample_end_link.start()]
                 print(f'{YELLOW}https://www.youtube.com/watch{link}{DEFAULT}\n')
             else:
                 urls.insert(0, (name, url))
@@ -64,9 +68,9 @@ def get_urls(start_file_name='') -> None:
         else:
             if file.endswith('.txt'):
                 files.append(file)
-    
+
     for file_name in files:
-        with open(file_name, 'r', encoding='utf8') as text:
+        with open(file_name, 'r', encoding='utf-8') as text:
             name, url = '', ''
             for line in text:
                 if line.startswith('name='):
@@ -76,7 +80,7 @@ def get_urls(start_file_name='') -> None:
                     urls.append((name, url))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     urls = []
     try:
         if len(sys.argv) == 2:
@@ -88,4 +92,4 @@ if __name__ == "__main__":
             get_urls()
         get_list_link()
     except KeyboardInterrupt:
-        print('exit! bye ... bye ...')
+        print(' exit! bye ... bye ...')
