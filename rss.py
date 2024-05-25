@@ -55,12 +55,15 @@ def get_urls(start_file_name='') -> list:
 
 if __name__ == "__main__":
     urls = []
-    if len(sys.argv) == 2:
-        get_urls(sys.argv[1])
-    else:
-        get_urls()
-    for name, channel_id in urls:
-        videos = get_latest_videos_from_rss(channel_id)
-        print(f' {red}{name}{normal} '.center(50, '*') + '\n')
-        for title, url in videos:
-            print(f"{blue}{title}{normal}\n{yellow}{url}{normal}\n")
+    try:
+        if len(sys.argv) == 2:
+            get_urls(sys.argv[1])
+        else:
+            get_urls()
+        for name, channel_id in urls:
+            videos = get_latest_videos_from_rss(channel_id)
+            print(f' {red}{name}{normal} '.center(50, '*') + '\n')
+            for title, url in videos:
+                print(f"{blue}{title}{normal}\n{yellow}{url}{normal}\n")
+    except KeyboardInterrupt:
+        print('exit! bye ... bye ...')

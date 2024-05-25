@@ -78,11 +78,14 @@ def get_urls(start_file_name='') -> None:
 
 if __name__ == "__main__":
     urls = []
-    if len(sys.argv) == 2:
-        if sys.argv[1].startswith('https://'):
-            urls = [('channel', sys.argv[1])]
+    try:
+        if len(sys.argv) == 2:
+            if sys.argv[1].startswith('https://'):
+                urls = [('channel', sys.argv[1])]
+            else:
+                get_urls(start_file_name=sys.argv[1])
         else:
-            get_urls(start_file_name=sys.argv[1])
-    else:
-        get_urls()
-    get_list_link()
+            get_urls()
+        get_list_link()
+    except KeyboardInterrupt:
+        print('exit! bye ... bye ...')
