@@ -6,6 +6,7 @@
 red='\033[31m'
 green='\033[32m'
 blue='\033[36m'
+yellow='\033[033m'
 normal='\033[0m'
 
 if [ $# -ne 1 ]; then
@@ -46,8 +47,27 @@ get_latest_videos_from_html() {
     fi
 }
 
-# Получение и вывод последних видео
-get_latest_videos_from_html | head -n "${NUM_VIDEOS}" | while IFS='|' read -r title url; do
+# Получение последних видео
+result=$(get_latest_videos_from_html | head -n "${NUM_VIDEOS}")
+
+# Вывод последнего видео
+echo "${result}" | sed -n "1p" | while IFS='|' read -r title url; do
+    printf "${yellow}%s${normal}" "*********************  "
+    echo -en "${red}${title}${normal}"
+    printf "${yellow}%s${normal}\\n" "  *********************"
+    echo -e "${blue}${url}${normal}"
+    printf "${yellow}%s${normal}\\n\\n" "********************************************************"
+done
+
+# Вывод предпоследнего видео
+echo "${result}" | sed -n "2p" | while IFS='|' read -r title url; do
+    echo -e "${red}${title}${normal}"
+    echo -e "${blue}${url}${normal}"
+    echo
+done
+
+# Вывод последних видео
+echo "${result}" | sed -n "3,+${NUM_VIDEOS}p" | while IFS='|' read -r title url; do
     echo -e "${green}${title}${normal}"
     echo -e "${blue}${url}${normal}"
     echo
