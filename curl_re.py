@@ -28,7 +28,7 @@ def get_list_link() -> None:
     while urls:
         try:
             name, url = urls.pop(0)
-            curl = f'curl -s --location --max-time 5 {url}'
+            curl = f'curl -s --location {PROXY} --max-time 7 {url}'
             html = subprocess.getoutput(curl)
             result_start_title = re.compile(start_title)
             sample_start_title = result_start_title.search(html)
@@ -70,7 +70,7 @@ def get_urls(start_file_name='') -> None:
                 files.append(file)
 
     for file_name in files:
-        with open(file_name, 'r', encoding='utf-8') as text:
+        with open(file_name, 'r', encoding='utf8') as text:
             name, url = '', ''
             for line in text:
                 if line.startswith('name='):
@@ -81,6 +81,8 @@ def get_urls(start_file_name='') -> None:
 
 
 if __name__ == '__main__':
+    if os.uname()[0] == 'Linux':
+        PROXY = subprocess.getoutput('cat proxy')
     urls = []
     try:
         if len(sys.argv) == 2:

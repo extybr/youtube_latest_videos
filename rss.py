@@ -1,8 +1,8 @@
-#######################
-#  Example:           #
-# $> python rss.py    #
-# $> python rss.py g  #
-#######################
+##############################
+#  Example: (without proxy)  #
+# $> python rss.py           #
+# $> python rss.py g         #
+##############################
 
 import sys
 import os
@@ -44,7 +44,7 @@ def get_urls(start_file_name='') -> Data_array:
                 files.append(file)
 
     for file_name in files:
-        with open(file_name, 'r', encoding='utf-8') as text:
+        with open(file_name, 'r', encoding='utf8') as text:
             _name, _id = '', ''
             for line in text:
                 if line.startswith('name='):

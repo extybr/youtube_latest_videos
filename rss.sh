@@ -9,6 +9,8 @@ blue='\033[36m'
 yellow='\033[033m'
 normal='\033[0m'
 
+PROXY=$(cat ./proxy)
+
 if [ $# -ne 1 ]; then
   echo -e "${red}1 parameter was expected, but $# were passed${normal}"
   exit 0
@@ -29,7 +31,7 @@ NUM_VIDEOS=5
 
 # Функция загрузки HTML-страницы
 get_html() {
-    html=$(curl -s --location --max-time 3 "${CHANNEL_URL}")
+    html=$(curl -s --location $PROXY --max-time 7 "${CHANNEL_URL}")
 }
 
 # Функция для получения последних видео из HTML-страницы
