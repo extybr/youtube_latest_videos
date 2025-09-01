@@ -18,7 +18,6 @@ DEFAULT = '\033[0m'
 
 
 def get_list_link() -> None:
-    global urls
     start_title = (r'"accessibility":{"accessibilityData":{"label":".+"}}},'
                    r'"descriptionSnippet"')
     end_title = r'"descriptionSnippet"'
