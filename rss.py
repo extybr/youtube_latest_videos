@@ -33,7 +33,6 @@ def get_latest_videos_from_rss(_channel_id: str, number_videos=5) -> Data_array:
 
 
 def get_urls(start_file_name='') -> Data_array:
-    global urls
     files = []
     for file in os.listdir():
         if start_file_name:

@@ -58,7 +58,6 @@ def get_list_link() -> None:
 
 
 def get_urls(start_file_name='') -> None:
-    global urls
     files = []
     for file in os.listdir():
         if start_file_name:
